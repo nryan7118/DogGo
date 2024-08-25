@@ -6,7 +6,7 @@ DogGO is an app designed for pet parents to manage and provide all necessary inf
 
 Features
 
-Pet List and Details: Users can view a list of all their pets. Selecting a pet will display detailed information including name, breed, date of birth, likes, dislikes, and more.
+Pet List and Details: Users can view a list of all their pets. Selecting a pet will display detailed information including name, breed, date of birth, likes, dislikes, and more.\
 Scheduling: Users can set and manage schedules for feeding, walking, and medications.
 Emergency and Vet Information: Store emergency contacts, vet information, and special instructions.
 Photo Gallery: Users can add and view photos of their pets in a dedicated gallery.
