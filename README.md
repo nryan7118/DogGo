@@ -10,9 +10,8 @@ Pet List and Details: Users can view a list of all their pets. Selecting a pet w
 Scheduling: Users can set and manage schedules for feeding, walking, and medications.
 Emergency and Vet Information: Store emergency contacts, vet information, and special instructions.
 Photo Gallery: Users can add and view photos of their pets in a dedicated gallery.
-Local Data Storage: The app uses local data storage solutions (SwiftData and UserDefaults) to save user data.
+Local Data Storage: The app uses Core Data and UserDefaults to save user data.
 Cloud Synchronization: Data is synchronized across devices using CloudKit, ensuring users have access to their data from any device.
-
 How DogGO Meets Capstone Requirements
 
 Splash Screen
@@ -22,12 +21,16 @@ List View with Detail Pages
 The app has a list view of all pets, each item includes the dog's name, breed, and a photo. Clicking on a pet takes the user to a detail page with more information.
 
 Network Call
-The app uses URLSession to make network calls for fetching additional data (such as friend lists or other related information). 
+The app uses URLSession to make network calls for fetching additional data. Specifically, the app integrates with the Dog CEO's Dog API to fetch a list of dog breeds. This external API provides breed data that is stored locally within the app, allowing users to select the breed of their dog from an up-to-date list. The network call also handles errors gracefully, such as no connectivity or server errors.
 
-Error handling is implemented to handle common network issues like no connectivity or server errors.
+API Integration:
 
+API Used: Dog CEO's Dog API (https://dog.ceo/dog-api/)
+Endpoint: /breeds/list/all
+Purpose: Fetch a list of dog breeds to be stored locally in the app, allowing users to select the correct breed for their dog.
+Error Handling: The app checks for network availability, handles server errors, and provides user feedback in case of failures.
 Local Data Storage
-The app utilizes SwiftData for the primary data storage and UserDefaults for certain user preferences.
+The app utilizes Core Data for the primary data storage and UserDefaults for certain user preferences.
 
 Error Handling and Empty States
 The app handles all errors gracefully, providing users with appropriate messages and steps to resolve issues. Empty states are clearly communicated with instructions on how to proceed.
@@ -39,8 +42,12 @@ Organized Code and Testing
 The project is organized into appropriate folders (Views, Models, Networking, etc.). SwiftLint is integrated for code style, and the project includes unit tests with at least 50% code coverage. All tests pass successfully.
 
 Additional Features
-The app includes a custom app icon, onboarding screen, custom display name, at least one SwiftUI animation, and fully styled text properties.
 
+Custom app icon
+Onboarding screen
+Custom display name
+SwiftUI animation
+Fully styled text properties
 Planned Screens and Elements
 
 Splash Screen: The initial screen showing the DogGO logo.
