@@ -6,47 +6,72 @@
 //
 
 import SwiftUI
-import SwiftData
+import CoreData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var dogs: [Dog]
-
+    @EnvironmentObject var dogDataStore: DogDataStore
+    @State private var selectedDog: Dog?
+    @State private var selectedVet: VetInformation?
+    @State private var selectedSchedule: Schedule?
+    
     var body: some View {
         NavigationStack {
             List {
-                ForEach(dogs) { dog in
-                    NavigationLink {
-                     //   DogDetailView(dog: dog)
-                    } label: {
-                        Text(dog.name)
+                ForEach(dogDataStore.dogs) { dog in
+                    HStack {
+                        NavigationLink(destination:
+                                        ViewDogTabView(
+                                            dog: dog,
+                                            vet: selectedVet ?? VetInformation(context: dogDataStore.managedObjectContext)
+                                        )
+                        ) {
+                            Text(dog.name ?? "No Name")
+                        }
+                        
+                        Spacer()
                     }
                 }
-                .onDelete(perform: deleteDogs)
+                .onDelete(perform: deleteDog)
             }
+            .navigationTitle("Dogs")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink(destination: AddDog()) {
-                        Label("Add Dog", systemImage: "plus")
+                    NavigationLink(destination: AddDogProgressiveView(dog: $selectedDog))  {
+                        Image(systemName: "plus")
                     }
+//                    .onTapGesture {
+//                        if selectedDog == nil {
+//                            selectedDog = Dog(context: dogDataStore.managedObjectContext)
+                      //  }
+                    }
+                }
+            }
+            .onAppear {
+                Task {
+                    await dogDataStore.fetchDogs()
                 }
             }
         }
-    }
-                private func deleteDogs(offsets: IndexSet) {
-                    withAnimation {
-                        for index in offsets {
-                            modelContext.delete(dogs[index])
-                        }
-                    }
+//    }
+    
+    private func deleteDog(offsets: IndexSet) {
+        for index in offsets {
+            let dog = dogDataStore.dogs[index]
+            dogDataStore.deleteDog(dog)
+            
+                }
             }
-            }
-        
+        }
 
 #Preview {
-    ContentView()
-        .modelContainer(for: Dog.self, inMemory: true)
+    let managedObjectContext = CoreDataStack.shared.context
+let dogDataStore = DogDataStore(managedObjectContext: managedObjectContext)
+        let scheduleDataStore = ScheduleDataStore(managedObjectContext: managedObjectContext)
+    let vetInformationDataStore = VetInformation(context: managedObjectContext)
+    
+    return ContentView()
+        .environmentObject(dogDataStore)
+        .environmentObject(scheduleDataStore)
+        .environmentObject(vetInformationDataStore)
+    
 }
