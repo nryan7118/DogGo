@@ -1,58 +1,60 @@
 DogGO
 
 Project Overview
-
-DogGO is an app designed for pet parents to manage and provide all necessary information about their dogs, especially for dog sitters. The app allows users to store details about their dogs, including basic information, schedules for feeding and walking, medical information, and emergency contacts. The goal is to make sure all pertinent information about a dog is easily accessible and well-organized.
+DogGO is an iOS app designed for pet parents to provide important information about their dogs, especially for dog sitters. The app allows users to store and manage details like basic dog information, feeding and walking schedules, vet contacts, and emergency information. The goal is to ensure that all essential details about a dog are easily accessible and well-organized.
 
 Features
 
-Pet List and Details: Users can view a list of all their pets. Selecting a pet will display detailed information including name, breed, date of birth, likes, dislikes, and more.
-Scheduling: Users can set and manage schedules for feeding, walking, and medications.
-Emergency and Vet Information: Store emergency contacts, vet information, and special instructions.
-Photo Gallery: Users can add and view photos of their pets in a dedicated gallery.
-Local Data Storage: The app uses Core Data and UserDefaults to save user data.
-Cloud Synchronization: Data is synchronized across devices using CloudKit, ensuring users have access to their data from any device.
-How DogGO Meets Capstone Requirements
+1. Pet List and Details
+Users can view a list of all their pets.
+Each pet’s details include name, breed, date of birth, likes, dislikes, and owner information.
+Information can be updated as needed, and multiple dogs can be managed through the app.
+2. Scheduling
+Set and manage schedules for feeding, walking, medications, and other events.
+Assign specific times and categories for each schedule.
+3. Owner & Emergency Contact Information
+Store multiple owner names and phone numbers for easy access.
+Add emergency contact information to ensure dog sitters can reach out when necessary.
+4. Vet Information
+Users can add and store a vet’s contact details, including the vet’s name, phone number, address, and more.
+5. Local Data Storage
+The app uses Core Data for saving all pet-related information locally, allowing users to manage data even when offline.
+Additionally, UserDefaults is used to store user preferences and other small bits of data.
+6. Cloud Synchronization
+Data is synchronized across devices using CloudKit, ensuring that all pet information is accessible from any iOS device logged into the same iCloud account.
+Capstone Project Requirements
 
-Splash Screen
+1. Splash Screen
 The app includes a custom splash screen featuring the DogGO logo.
-
-List View with Detail Pages
-The app has a list view of all pets, each item includes the dog's name, breed, and a photo. Clicking on a pet takes the user to a detail page with more information.
-
-Network Call
-The app uses URLSession to make network calls for fetching additional data. Specifically, the app integrates with the Dog CEO's Dog API to fetch a list of dog breeds. This external API provides breed data that is stored locally within the app, allowing users to select the breed of their dog from an up-to-date list. The network call also handles errors gracefully, such as no connectivity or server errors.
-
-API Integration:
-
-API Used: Dog CEO's Dog API (https://dog.ceo/dog-api/)
+2. List View with Detail Pages
+The home screen presents a list of all pets with their names and breeds.
+Clicking on a pet takes the user to a detailed information page.
+3. Network Call
+The app uses URLSession to make network calls to fetch additional data. Specifically, it integrates with Dog CEO’s Dog API to fetch a list of dog breeds. This allows users to select from an up-to-date list when adding or editing their dog’s breed.
+API Used: Dog CEO's Dog API
 Endpoint: /breeds/list/all
-Purpose: Fetch a list of dog breeds to be stored locally in the app, allowing users to select the correct breed for their dog.
-Error Handling: The app checks for network availability, handles server errors, and provides user feedback in case of failures.
-Local Data Storage
-The app utilizes Core Data for the primary data storage and UserDefaults for certain user preferences.
-
-Error Handling and Empty States
-The app handles all errors gracefully, providing users with appropriate messages and steps to resolve issues. Empty states are clearly communicated with instructions on how to proceed.
-
-Orientation and Mode Support
-The app supports both portrait and landscape orientations, and works well in both light and dark modes.
-
-Organized Code and Testing
-The project is organized into appropriate folders (Views, Models, Networking, etc.). SwiftLint is integrated for code style, and the project includes unit tests with at least 50% code coverage. All tests pass successfully.
-
-Additional Features
-
-Custom app icon
-Onboarding screen
-Custom display name
-SwiftUI animation
-Fully styled text properties
+Purpose: Fetch a list of dog breeds to be stored locally in the app.
+Error Handling: Handles network availability issues and provides feedback to users when errors occur (e.g., no internet connectivity).
+4. Local Data Storage
+The app stores all user data using Core Data, ensuring that information about the user’s pets is persistent and available offline.
+5. Error Handling and Empty States
+The app gracefully handles errors, such as missing network connectivity or issues with saving data. It provides appropriate feedback to the user and offers instructions when encountering empty states (e.g., no pets added yet).
+6. Orientation and Mode Support
+The app supports both portrait and landscape orientations and adjusts seamlessly between light and dark modes.
+7. Organized Code and Testing
+The project is organized into appropriate folders for Views, Models, and Networking.
+SwiftLint is integrated to enforce a consistent code style.
+Unit tests cover at least 50% of the codebase to ensure stability, with all tests passing successfully.
 Planned Screens and Elements
 
-Splash Screen: The initial screen showing the DogGO logo.
-Home Screen: A list of all pets with options to add or edit details.
-Detail View: Displays detailed information about a selected dog.
-Schedule View: Allows users to add and manage feeding, walking, and medication schedules.
-Gallery View: A grid of photos associated with each pet.
-Emergency Contacts: Displays emergency contact information and vet details.
+Splash Screen: Displays the DogGO logo upon launching the app.
+Home Screen: A list of all pets with options to add or edit their details.
+Detail View: Displays detailed information about a selected dog, including basic information and preferences.
+Schedule View: Manage and update feeding, walking, medication schedules, and other events.
+Owner & Emergency Contact: View and update emergency contact and vet information.
+Additional Features
+
+Custom App Icon: The app has a unique DogGO icon.
+Onboarding Screen: Guides users through the initial setup of their first pet.
+Custom Animations: SwiftUI animations are used to enhance user interaction.
+Styled Text: Fully styled and responsive text properties are used throughout the app to ensure accessibility and a consistent look.
