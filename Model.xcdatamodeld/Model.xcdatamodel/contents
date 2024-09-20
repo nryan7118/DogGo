@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="DogGO">
+    <entity name="Dog" representedClassName=".Dog" syncable="YES">
+        <attribute name="allergies" optional="YES" attributeType="Transformable"/>
+        <attribute name="breed" optional="YES" attributeType="String"/>
+        <attribute name="dislikes" optional="YES" attributeType="Transformable"/>
+        <attribute name="dob" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="emergencyContactPhone" optional="YES" attributeType="String"/>
+        <attribute name="emergencyContacts" optional="YES" attributeType="String"/>
+        <attribute name="likes" optional="YES" attributeType="Transformable"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="ownerName" optional="YES" attributeType="Transformable"/>
+        <attribute name="ownerPhone" optional="YES" attributeType="Transformable"/>
+        <attribute name="specialInstructions" optional="YES" attributeType="String"/>
+        <attribute name="vetID" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Entity" representedClassName="Entity" syncable="YES"/>
+    <entity name="Schedule" representedClassName=".Schedule" syncable="YES">
+        <attribute name="scheduledCategory" optional="YES" attributeType="String"/>
+        <attribute name="scheduledEvent" optional="YES" attributeType="String"/>
+        <attribute name="scheduledTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="VetInformation" representedClassName=".VetInformation" syncable="YES">
+        <attribute name="vetAddress1" optional="YES" attributeType="String"/>
+        <attribute name="vetAddress2" optional="YES" attributeType="String"/>
+        <attribute name="vetCity" optional="YES" attributeType="String"/>
+        <attribute name="vetFirstName" optional="YES" attributeType="String"/>
+        <attribute name="vetID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="vetLastName" optional="YES" attributeType="String"/>
+        <attribute name="vetPhoneNumber" optional="YES" attributeType="String"/>
+        <attribute name="vetState" optional="YES" attributeType="String"/>
+        <attribute name="vetZip" optional="YES" attributeType="String"/>
+    </entity>
+</model>

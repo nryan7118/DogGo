@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Dog" representedClassName="Dog" syncable="YES" codeGenerationType="class">
+        <attribute name="breed" optional="YES" attributeType="String"/>
+        <attribute name="dislikes" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="dob" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dogID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="emergencyContactPhone" optional="YES" attributeType="String"/>
+        <attribute name="emergencyContacts" optional="YES" attributeType="String"/>
+        <attribute name="likes" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="ownerName" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="ownerPhone" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="photo" optional="YES" attributeType="Binary"/>
+        <attribute name="scheduleSelectedID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="specialInstructions" optional="YES" attributeType="String"/>
+        <attribute name="vetSelectedID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="vetRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VetInformation" inverseName="dogRelationship" inverseEntity="VetInformation"/>
+    </entity>
+    <entity name="Schedule" representedClassName=".Schedule" syncable="YES" codeGenerationType="class">
+        <attribute name="scheduledCategory" optional="YES" attributeType="String"/>
+        <attribute name="scheduledEvent" optional="YES" attributeType="String"/>
+        <attribute name="scheduledTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="scheduleID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="selectedDogID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="VetInformation" representedClassName=".VetInformation" syncable="YES" codeGenerationType="class">
+        <attribute name="vetAddress1" optional="YES" attributeType="String"/>
+        <attribute name="vetAddress2" optional="YES" attributeType="String"/>
+        <attribute name="vetCity" optional="YES" attributeType="String"/>
+        <attribute name="vetFirstName" optional="YES" attributeType="String"/>
+        <attribute name="vetID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="vetLastName" optional="YES" attributeType="String"/>
+        <attribute name="vetPhoneNumber" optional="YES" attributeType="String"/>
+        <attribute name="vetState" optional="YES" attributeType="String"/>
+        <attribute name="vetZip" optional="YES" attributeType="String"/>
+        <relationship name="dogRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Dog" inverseName="vetRelationship" inverseEntity="Dog"/>
+    </entity>
+</model>

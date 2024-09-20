@@ -7,21 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48124FE52C9250DD003AB401 /* ScheduleDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48124FE42C9250DD003AB401 /* ScheduleDataStoreTests.swift */; };
+		48124FE72C9262FF003AB401 /* VetInformationDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48124FE62C9262FF003AB401 /* VetInformationDataStoreTests.swift */; };
+		4829C7E62C928D050042C72F /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4829C7E52C928D050042C72F /* CoreDataStackTests.swift */; };
+		4861ABE02C810D4D00948CB8 /* DogBreedAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4861ABDF2C810D4D00948CB8 /* DogBreedAPIManager.swift */; };
+		4861ABE82C81E1EB00948CB8 /* VetInformationDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4861ABE72C81E1EB00948CB8 /* VetInformationDataStore.swift */; };
+		48769C6F2C9A459700F4EA0E /* FirstDogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48769C6E2C9A459700F4EA0E /* FirstDogView.swift */; };
+		48769C782C9C2B6000F4EA0E /* DogGoCore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48769C762C9C2B6000F4EA0E /* DogGoCore.xcdatamodeld */; };
 		4882191E2C79394C00EFA680 /* DogGOApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4882191D2C79394C00EFA680 /* DogGOApp.swift */; };
 		488219202C79394C00EFA680 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4882191F2C79394C00EFA680 /* ContentView.swift */; };
-		488219222C79394C00EFA680 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488219212C79394C00EFA680 /* Dog.swift */; };
 		488219242C79394D00EFA680 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 488219232C79394D00EFA680 /* Assets.xcassets */; };
-		488219282C79394D00EFA680 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 488219272C79394D00EFA680 /* Preview Assets.xcassets */; };
 		488219322C79394D00EFA680 /* DogGOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488219312C79394D00EFA680 /* DogGOTests.swift */; };
 		4882193C2C79394D00EFA680 /* DogGOUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4882193B2C79394D00EFA680 /* DogGOUITests.swift */; };
 		4882193E2C79394D00EFA680 /* DogGOUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4882193D2C79394D00EFA680 /* DogGOUITestsLaunchTests.swift */; };
-		4882194D2C79442F00EFA680 /* AddDog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4882194C2C79442F00EFA680 /* AddDog.swift */; };
 		4882194F2C7A155D00EFA680 /* AddSchecduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4882194E2C7A155D00EFA680 /* AddSchecduleView.swift */; };
-		488219512C7A160000EFA680 /* BasicInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488219502C7A160000EFA680 /* BasicInfoView.swift */; };
-		488219532C7A163700EFA680 /* ArrayEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488219522C7A163700EFA680 /* ArrayEntryView.swift */; };
-		488219552C7A165C00EFA680 /* VetInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488219542C7A165C00EFA680 /* VetInformationView.swift */; };
+		488219512C7A160000EFA680 /* AddBasicInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488219502C7A160000EFA680 /* AddBasicInfoView.swift */; };
+		488219552C7A165C00EFA680 /* AddVetInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488219542C7A165C00EFA680 /* AddVetInformationView.swift */; };
 		488219572C7A168400EFA680 /* TextEntryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488219562C7A168400EFA680 /* TextEntryRowView.swift */; };
+		4885462C2C89A3E10048CAAC /* AddDogProgressiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4885462B2C89A3E10048CAAC /* AddDogProgressiveView.swift */; };
+		4885462E2C8BDE530048CAAC /* ViewVetInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4885462D2C8BDE530048CAAC /* ViewVetInformation.swift */; };
+		488546302C8BE9E50048CAAC /* ViewDogTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4885462F2C8BE9E50048CAAC /* ViewDogTabView.swift */; };
+		488546322C8C711A0048CAAC /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488546312C8C711A0048CAAC /* ContactView.swift */; };
+		488546342C8C71930048CAAC /* OwnerInformationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488546332C8C71930048CAAC /* OwnerInformationSectionView.swift */; };
+		488546362C8C71AA0048CAAC /* EmergencyContactSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488546352C8C71AA0048CAAC /* EmergencyContactSectionView.swift */; };
+		488546382C8E52EE0048CAAC /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488546372C8E52EE0048CAAC /* AddressView.swift */; };
+		4885463E2C911B590048CAAC /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4885463D2C911B590048CAAC /* OnboardingView.swift */; };
+		488546402C912E200048CAAC /* OnboardingPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4885463F2C912E200048CAAC /* OnboardingPageView.swift */; };
 		488971132C7B58B4004A7F6A /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 488971122C7B58B4004A7F6A /* SplashScreen.storyboard */; };
+		48BB1A522C83730300A69E07 /* ViewScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BB1A4D2C8312A100A69E07 /* ViewScheduleView.swift */; };
+		48BB1A602C8715D500A69E07 /* BreedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BB1A5F2C8715D500A69E07 /* BreedPickerView.swift */; };
+		48BB1A622C8772FC00A69E07 /* HighLightedHeadline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BB1A612C8772FC00A69E07 /* HighLightedHeadline.swift */; };
+		48BB1A662C892D7700A69E07 /* Owner&PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BB1A652C892D7700A69E07 /* Owner&PhotoView.swift */; };
+		48C927C52C7CE34A0051EE86 /* ScheduleDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C927C42C7CE34A0051EE86 /* ScheduleDataStore.swift */; };
+		48D56D902C7F7BB3000A0CD1 /* ViewDogInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D56D8F2C7F7BB3000A0CD1 /* ViewDogInformationView.swift */; };
+		48D56D942C7F91AC000A0CD1 /* CloudKitAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D56D932C7F91AC000A0CD1 /* CloudKitAPIManager.swift */; };
+		48D56D982C7FBFC4000A0CD1 /* VetInformationForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D56D972C7FBFC4000A0CD1 /* VetInformationForm.swift */; };
+		48D56DC62C80AF05000A0CD1 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D56DC52C80AF05000A0CD1 /* CoreDataStack.swift */; };
+		48FABA142C7BA407009D74A7 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FABA132C7BA407009D74A7 /* TimePickerView.swift */; };
+		48FABA172C7BC7D3009D74A7 /* DropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FABA162C7BC7D3009D74A7 /* DropDownView.swift */; };
+		48FABA1A2C7C5D41009D74A7 /* DogDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FABA192C7C5D41009D74A7 /* DogDataStore.swift */; };
+		48FABA1E2C7C726E009D74A7 /* DogDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FABA1D2C7C726E009D74A7 /* DogDataStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,10 +67,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		48124FE32C91FA9E003AB401 /* .swiftlint.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = .swiftlint.md; sourceTree = "<group>"; };
+		48124FE42C9250DD003AB401 /* ScheduleDataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDataStoreTests.swift; sourceTree = "<group>"; };
+		48124FE62C9262FF003AB401 /* VetInformationDataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VetInformationDataStoreTests.swift; sourceTree = "<group>"; };
+		4829C7E52C928D050042C72F /* CoreDataStackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
+		4861ABDF2C810D4D00948CB8 /* DogBreedAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedAPIManager.swift; sourceTree = "<group>"; };
+		4861ABE72C81E1EB00948CB8 /* VetInformationDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VetInformationDataStore.swift; sourceTree = "<group>"; };
+		48769C6E2C9A459700F4EA0E /* FirstDogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDogView.swift; sourceTree = "<group>"; };
+		48769C772C9C2B6000F4EA0E /* DogGoCore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DogGoCore.xcdatamodel; sourceTree = "<group>"; };
 		4882191A2C79394C00EFA680 /* DogGO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogGO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4882191D2C79394C00EFA680 /* DogGOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogGOApp.swift; sourceTree = "<group>"; };
 		4882191F2C79394C00EFA680 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		488219212C79394C00EFA680 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		488219232C79394D00EFA680 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		488219252C79394D00EFA680 /* DogGO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DogGO.entitlements; sourceTree = "<group>"; };
 		488219272C79394D00EFA680 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -54,13 +86,34 @@
 		488219372C79394D00EFA680 /* DogGOUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DogGOUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4882193B2C79394D00EFA680 /* DogGOUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogGOUITests.swift; sourceTree = "<group>"; };
 		4882193D2C79394D00EFA680 /* DogGOUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogGOUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		4882194C2C79442F00EFA680 /* AddDog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDog.swift; sourceTree = "<group>"; };
 		4882194E2C7A155D00EFA680 /* AddSchecduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSchecduleView.swift; sourceTree = "<group>"; };
-		488219502C7A160000EFA680 /* BasicInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoView.swift; sourceTree = "<group>"; };
-		488219522C7A163700EFA680 /* ArrayEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayEntryView.swift; sourceTree = "<group>"; };
-		488219542C7A165C00EFA680 /* VetInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VetInformationView.swift; sourceTree = "<group>"; };
+		488219502C7A160000EFA680 /* AddBasicInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBasicInfoView.swift; sourceTree = "<group>"; };
+		488219542C7A165C00EFA680 /* AddVetInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVetInformationView.swift; sourceTree = "<group>"; };
 		488219562C7A168400EFA680 /* TextEntryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEntryRowView.swift; sourceTree = "<group>"; };
+		4885462B2C89A3E10048CAAC /* AddDogProgressiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDogProgressiveView.swift; sourceTree = "<group>"; };
+		4885462D2C8BDE530048CAAC /* ViewVetInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewVetInformation.swift; sourceTree = "<group>"; };
+		4885462F2C8BE9E50048CAAC /* ViewDogTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDogTabView.swift; sourceTree = "<group>"; };
+		488546312C8C711A0048CAAC /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
+		488546332C8C71930048CAAC /* OwnerInformationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerInformationSectionView.swift; sourceTree = "<group>"; };
+		488546352C8C71AA0048CAAC /* EmergencyContactSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyContactSectionView.swift; sourceTree = "<group>"; };
+		488546372C8E52EE0048CAAC /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
+		4885463D2C911B590048CAAC /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		4885463F2C912E200048CAAC /* OnboardingPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageView.swift; sourceTree = "<group>"; };
 		488971122C7B58B4004A7F6A /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
+		48BB1A4D2C8312A100A69E07 /* ViewScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewScheduleView.swift; sourceTree = "<group>"; };
+		48BB1A5F2C8715D500A69E07 /* BreedPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedPickerView.swift; sourceTree = "<group>"; };
+		48BB1A612C8772FC00A69E07 /* HighLightedHeadline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighLightedHeadline.swift; sourceTree = "<group>"; };
+		48BB1A652C892D7700A69E07 /* Owner&PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Owner&PhotoView.swift"; sourceTree = "<group>"; };
+		48C927C42C7CE34A0051EE86 /* ScheduleDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDataStore.swift; sourceTree = "<group>"; };
+		48D56D8F2C7F7BB3000A0CD1 /* ViewDogInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDogInformationView.swift; sourceTree = "<group>"; };
+		48D56D932C7F91AC000A0CD1 /* CloudKitAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitAPIManager.swift; sourceTree = "<group>"; };
+		48D56D972C7FBFC4000A0CD1 /* VetInformationForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VetInformationForm.swift; sourceTree = "<group>"; };
+		48D56DC52C80AF05000A0CD1 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		48FABA132C7BA407009D74A7 /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
+		48FABA162C7BC7D3009D74A7 /* DropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownView.swift; sourceTree = "<group>"; };
+		48FABA192C7C5D41009D74A7 /* DogDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDataStore.swift; sourceTree = "<group>"; };
+		48FABA1D2C7C726E009D74A7 /* DogDataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogDataStoreTests.swift; sourceTree = "<group>"; };
+		48FABA1F2C7CB391009D74A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,9 +141,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4861ABEA2C81F34300948CB8 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4861ABDF2C810D4D00948CB8 /* DogBreedAPIManager.swift */,
+				48D56DC52C80AF05000A0CD1 /* CoreDataStack.swift */,
+				48D56D932C7F91AC000A0CD1 /* CloudKitAPIManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		4861ABEB2C81F35B00948CB8 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				48124FE32C91FA9E003AB401 /* .swiftlint.md */,
+				4882191D2C79394C00EFA680 /* DogGOApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		488219112C79394C00EFA680 = {
 			isa = PBXGroup;
 			children = (
+				48769C762C9C2B6000F4EA0E /* DogGoCore.xcdatamodeld */,
 				4882191C2C79394C00EFA680 /* DogGO */,
 				488219302C79394D00EFA680 /* DogGOTests */,
 				4882193A2C79394D00EFA680 /* DogGOUITests */,
@@ -111,18 +184,21 @@
 		4882191C2C79394C00EFA680 /* DogGO */ = {
 			isa = PBXGroup;
 			children = (
-				4882191D2C79394C00EFA680 /* DogGOApp.swift */,
+				4885463C2C911AD40048CAAC /* Onboarding */,
+				4885463B2C8FB24F0048CAAC /* AddDog */,
+				4885463A2C8FB1E40048CAAC /* ContactView */,
+				48BB1A512C83722B00A69E07 /* VetInformation */,
+				48BB1A502C83722500A69E07 /* Dog */,
+				48BB1A4F2C83720500A69E07 /* Schedule */,
+				4861ABEB2C81F35B00948CB8 /* App */,
+				4861ABEA2C81F34300948CB8 /* Network */,
+				48FABA1F2C7CB391009D74A7 /* Info.plist */,
+				48FABA182C7C5D23009D74A7 /* Data Stores */,
+				48FABA152C7BC767009D74A7 /* View Reuse */,
 				4882191F2C79394C00EFA680 /* ContentView.swift */,
-				488219212C79394C00EFA680 /* Dog.swift */,
 				488219232C79394D00EFA680 /* Assets.xcassets */,
 				488219252C79394D00EFA680 /* DogGO.entitlements */,
 				488219262C79394D00EFA680 /* Preview Content */,
-				488219502C7A160000EFA680 /* BasicInfoView.swift */,
-				488219522C7A163700EFA680 /* ArrayEntryView.swift */,
-				488219542C7A165C00EFA680 /* VetInformationView.swift */,
-				488219562C7A168400EFA680 /* TextEntryRowView.swift */,
-				4882194C2C79442F00EFA680 /* AddDog.swift */,
-				4882194E2C7A155D00EFA680 /* AddSchecduleView.swift */,
 				488971122C7B58B4004A7F6A /* SplashScreen.storyboard */,
 			);
 			path = DogGO;
@@ -140,6 +216,10 @@
 			isa = PBXGroup;
 			children = (
 				488219312C79394D00EFA680 /* DogGOTests.swift */,
+				48FABA1D2C7C726E009D74A7 /* DogDataStoreTests.swift */,
+				48124FE42C9250DD003AB401 /* ScheduleDataStoreTests.swift */,
+				48124FE62C9262FF003AB401 /* VetInformationDataStoreTests.swift */,
+				4829C7E52C928D050042C72F /* CoreDataStackTests.swift */,
 			);
 			path = DogGOTests;
 			sourceTree = "<group>";
@@ -153,6 +233,87 @@
 			path = DogGOUITests;
 			sourceTree = "<group>";
 		};
+		4885463A2C8FB1E40048CAAC /* ContactView */ = {
+			isa = PBXGroup;
+			children = (
+				488546312C8C711A0048CAAC /* ContactView.swift */,
+				4885462D2C8BDE530048CAAC /* ViewVetInformation.swift */,
+				488546352C8C71AA0048CAAC /* EmergencyContactSectionView.swift */,
+				488546332C8C71930048CAAC /* OwnerInformationSectionView.swift */,
+			);
+			path = ContactView;
+			sourceTree = "<group>";
+		};
+		4885463B2C8FB24F0048CAAC /* AddDog */ = {
+			isa = PBXGroup;
+			children = (
+				4885462B2C89A3E10048CAAC /* AddDogProgressiveView.swift */,
+				48BB1A5F2C8715D500A69E07 /* BreedPickerView.swift */,
+				488219502C7A160000EFA680 /* AddBasicInfoView.swift */,
+			);
+			path = AddDog;
+			sourceTree = "<group>";
+		};
+		4885463C2C911AD40048CAAC /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				4885463D2C911B590048CAAC /* OnboardingView.swift */,
+				4885463F2C912E200048CAAC /* OnboardingPageView.swift */,
+				48769C6E2C9A459700F4EA0E /* FirstDogView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		48BB1A4F2C83720500A69E07 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				4882194E2C7A155D00EFA680 /* AddSchecduleView.swift */,
+				48BB1A4D2C8312A100A69E07 /* ViewScheduleView.swift */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		48BB1A502C83722500A69E07 /* Dog */ = {
+			isa = PBXGroup;
+			children = (
+				4885462F2C8BE9E50048CAAC /* ViewDogTabView.swift */,
+				48D56D8F2C7F7BB3000A0CD1 /* ViewDogInformationView.swift */,
+				48BB1A652C892D7700A69E07 /* Owner&PhotoView.swift */,
+			);
+			path = Dog;
+			sourceTree = "<group>";
+		};
+		48BB1A512C83722B00A69E07 /* VetInformation */ = {
+			isa = PBXGroup;
+			children = (
+				488219542C7A165C00EFA680 /* AddVetInformationView.swift */,
+				48D56D972C7FBFC4000A0CD1 /* VetInformationForm.swift */,
+			);
+			path = VetInformation;
+			sourceTree = "<group>";
+		};
+		48FABA152C7BC767009D74A7 /* View Reuse */ = {
+			isa = PBXGroup;
+			children = (
+				48FABA132C7BA407009D74A7 /* TimePickerView.swift */,
+				488219562C7A168400EFA680 /* TextEntryRowView.swift */,
+				48FABA162C7BC7D3009D74A7 /* DropDownView.swift */,
+				48BB1A612C8772FC00A69E07 /* HighLightedHeadline.swift */,
+				488546372C8E52EE0048CAAC /* AddressView.swift */,
+			);
+			path = "View Reuse";
+			sourceTree = "<group>";
+		};
+		48FABA182C7C5D23009D74A7 /* Data Stores */ = {
+			isa = PBXGroup;
+			children = (
+				48FABA192C7C5D41009D74A7 /* DogDataStore.swift */,
+				4861ABE72C81E1EB00948CB8 /* VetInformationDataStore.swift */,
+				48C927C42C7CE34A0051EE86 /* ScheduleDataStore.swift */,
+			);
+			path = "Data Stores";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -163,6 +324,7 @@
 				488219162C79394C00EFA680 /* Sources */,
 				488219172C79394C00EFA680 /* Frameworks */,
 				488219182C79394C00EFA680 /* Resources */,
+				488546432C91B7BC0048CAAC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -257,7 +419,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				488219282C79394D00EFA680 /* Preview Assets.xcassets in Resources */,
 				488971132C7B58B4004A7F6A /* SplashScreen.storyboard in Resources */,
 				488219242C79394D00EFA680 /* Assets.xcassets in Resources */,
 			);
@@ -279,19 +440,63 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		488546432C91B7BC0048CAAC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/newOutputFile${DERIVED_FILE_DIR}/swiftlint",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [ -f /opt/homebrew/bin/swiftlint ]; then\n    /opt/homebrew/bin/swiftlint\nelse\n    echo \"warning: SwiftLint not installed, install it using Homebrew\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		488219162C79394C00EFA680 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48BB1A622C8772FC00A69E07 /* HighLightedHeadline.swift in Sources */,
 				488219202C79394C00EFA680 /* ContentView.swift in Sources */,
-				488219222C79394C00EFA680 /* Dog.swift in Sources */,
-				488219532C7A163700EFA680 /* ArrayEntryView.swift in Sources */,
-				4882194D2C79442F00EFA680 /* AddDog.swift in Sources */,
+				4885462E2C8BDE530048CAAC /* ViewVetInformation.swift in Sources */,
+				48FABA1A2C7C5D41009D74A7 /* DogDataStore.swift in Sources */,
+				488546362C8C71AA0048CAAC /* EmergencyContactSectionView.swift in Sources */,
+				48BB1A522C83730300A69E07 /* ViewScheduleView.swift in Sources */,
+				48769C782C9C2B6000F4EA0E /* DogGoCore.xcdatamodeld in Sources */,
+				48BB1A662C892D7700A69E07 /* Owner&PhotoView.swift in Sources */,
+				48BB1A602C8715D500A69E07 /* BreedPickerView.swift in Sources */,
+				48C927C52C7CE34A0051EE86 /* ScheduleDataStore.swift in Sources */,
+				4861ABE02C810D4D00948CB8 /* DogBreedAPIManager.swift in Sources */,
+				48D56D902C7F7BB3000A0CD1 /* ViewDogInformationView.swift in Sources */,
+				488546322C8C711A0048CAAC /* ContactView.swift in Sources */,
+				4885462C2C89A3E10048CAAC /* AddDogProgressiveView.swift in Sources */,
+				488546402C912E200048CAAC /* OnboardingPageView.swift in Sources */,
+				488546382C8E52EE0048CAAC /* AddressView.swift in Sources */,
 				488219572C7A168400EFA680 /* TextEntryRowView.swift in Sources */,
-				488219512C7A160000EFA680 /* BasicInfoView.swift in Sources */,
+				48FABA172C7BC7D3009D74A7 /* DropDownView.swift in Sources */,
+				4861ABE82C81E1EB00948CB8 /* VetInformationDataStore.swift in Sources */,
+				48769C6F2C9A459700F4EA0E /* FirstDogView.swift in Sources */,
+				488219512C7A160000EFA680 /* AddBasicInfoView.swift in Sources */,
+				4885463E2C911B590048CAAC /* OnboardingView.swift in Sources */,
 				4882191E2C79394C00EFA680 /* DogGOApp.swift in Sources */,
-				488219552C7A165C00EFA680 /* VetInformationView.swift in Sources */,
+				48D56DC62C80AF05000A0CD1 /* CoreDataStack.swift in Sources */,
+				48D56D942C7F91AC000A0CD1 /* CloudKitAPIManager.swift in Sources */,
+				488546302C8BE9E50048CAAC /* ViewDogTabView.swift in Sources */,
+				488219552C7A165C00EFA680 /* AddVetInformationView.swift in Sources */,
+				48D56D982C7FBFC4000A0CD1 /* VetInformationForm.swift in Sources */,
+				488546342C8C71930048CAAC /* OwnerInformationSectionView.swift in Sources */,
+				48FABA142C7BA407009D74A7 /* TimePickerView.swift in Sources */,
 				4882194F2C7A155D00EFA680 /* AddSchecduleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,7 +505,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48124FE72C9262FF003AB401 /* VetInformationDataStoreTests.swift in Sources */,
+				48FABA1E2C7C726E009D74A7 /* DogDataStoreTests.swift in Sources */,
+				4829C7E62C928D050042C72F /* CoreDataStackTests.swift in Sources */,
 				488219322C79394D00EFA680 /* DogGOTests.swift in Sources */,
+				48124FE52C9250DD003AB401 /* ScheduleDataStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +575,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -427,7 +636,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -449,6 +658,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DogGO/DogGO.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogGO/Preview Content\"";
@@ -456,12 +666,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DogGO/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = SplashScreen.storyboard;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -471,8 +683,9 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nickr.DogGO;
+				PRODUCT_BUNDLE_IDENTIFIER = nickRy.DogGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -487,6 +700,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DogGO/DogGO.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DogGO/Preview Content\"";
@@ -494,12 +708,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DogGO/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = SplashScreen.storyboard;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -509,8 +725,9 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nickr.DogGO;
+				PRODUCT_BUNDLE_IDENTIFIER = nickRy.DogGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -649,6 +866,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		48769C762C9C2B6000F4EA0E /* DogGoCore.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				48769C772C9C2B6000F4EA0E /* DogGoCore.xcdatamodel */,
+			);
+			currentVersion = 48769C772C9C2B6000F4EA0E /* DogGoCore.xcdatamodel */;
+			name = DogGoCore.xcdatamodeld;
+			path = "/Users/nickryan/Documents/iOS Projects/DogGO/DogGoCore.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 488219122C79394C00EFA680 /* Project object */;
 }
