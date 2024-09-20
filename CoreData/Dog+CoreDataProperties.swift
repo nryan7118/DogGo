@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension DogEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<DogEntity> {
@@ -31,6 +30,5 @@ extension DogEntity {
 
 }
 
-extension DogEntity : Identifiable {
-
+extension DogEntity: Identifiable {
 }

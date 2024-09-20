@@ -21,14 +21,21 @@ struct VetInformationForm: View {
     var body: some View {
         VStack {
             TextEntryRowView(title: "First Name", value: $vetFirstName)
+                .accessibilityIdentifier("vetFirstName")
             TextEntryRowView(title: "Last Name", value: $vetLastName)
+                .accessibilityIdentifier("vetLastName")
             TextEntryRowView(title: "Vet Address", value: $vetAddress1)
+                .accessibilityIdentifier("vetAddress1")
             TextEntryRowView(title: "Address Cont.", value: $vetAddress2)
+                .accessibilityIdentifier("vetAddress2")
             TextEntryRowView(title: "City", value: $vetCity)
+                .accessibilityIdentifier("vetCity")
             TextEntryRowView(title: "State", value: $vetState)
+                .accessibilityIdentifier("vetState")
             TextEntryRowView(title: "Zip Code", value: $vetZip)
+                .accessibilityIdentifier("vetZip")
             TextEntryRowView(title: "Phone Number", value: $vetPhoneNumber)
+                .accessibilityIdentifier("vetPhone")
         }
     }
-    
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct AddressView: View {
     var address1: String
     var address2: String?
-    
+
     var body: some View {
         Text(buildAddressText(address1: address1, address2: address2))
             .lineLimit(nil)  // Allow for text wrapping

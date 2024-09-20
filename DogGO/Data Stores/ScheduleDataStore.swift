@@ -10,10 +10,12 @@ import CoreData
 
 class ScheduleDataStore: ObservableObject {
     @Published var schedules: [Schedule] = []
-    public let managedObjectContext: NSManagedObjectContext
-    
-    init(managedObjectContext: NSManagedObjectContext) {
-        self.managedObjectContext = managedObjectContext
+    @Published var alertMessage: String?
+
+    private let managedObjectContext: NSManagedObjectContext
+
+    init(context: NSManagedObjectContext = CoreDataStack.shared.context) {
+        self.managedObjectContext = context
         Task {
             await fetchSchedules()
         }
@@ -26,37 +28,54 @@ class ScheduleDataStore: ObservableObject {
             let fetchedSchedules = try await managedObjectContext.perform {
                 try self.managedObjectContext.fetch(fetchRequest)
             }
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.schedules = fetchedSchedules
             }
         } catch {
-            print("Failed to fetch schedules: \(error)")
+            await MainActor.run {
+                self.alertMessage = "Failed to fetch schedules: \(error)"
+            }
         }
     }
-    func fetchSchedules(for dogID: UUID) {
+
+    func fetchSchedules(for dog: Dog) async {
         let fetchRequest: NSFetchRequest<Schedule> = Schedule.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "selectedDogID == %@", dogID as CVarArg)
+        fetchRequest.predicate = NSPredicate(format: "dogRelationship == %@", dog)
 
         do {
-            self.schedules = try managedObjectContext.fetch(fetchRequest)
+            let fetchedSchedules = try await managedObjectContext.perform {
+                try self.managedObjectContext.fetch(fetchRequest)
+            }
+            await MainActor.run {
+                self.schedules = fetchedSchedules
+            }
         } catch {
-            print("Failed to fetch schedules: \(error)")
+            await MainActor.run {
+                self.alertMessage = "Failed to fetch schedules: \(error)"
+            }
         }
     }
 
-    func addSchedule(_ schedule: Schedule) async {
+    func addSchedule(_ schedule: Schedule, to dog: Dog) async {
         managedObjectContext.insert(schedule)
+        schedule.dogRelationship = dog
+
         await saveContext()  // Await the save operation
-        await fetchSchedules(for: schedule.selectedDogID ?? UUID())  // Fetch updated list
+
+        await fetchSchedules(for: dog)  // Fetch updated list
     }
 
     func deleteSchedule(_ schedule: Schedule) async {
+        let dog = schedule.dogRelationship
         managedObjectContext.delete(schedule)
-        await saveContext()  // Await the save operation
+        await saveContext()
         schedules.removeAll { $0 == schedule }
-        await fetchSchedules(for: schedule.selectedDogID ?? UUID())  // Fetch updated list
-    }
 
+        if let dog = dog {
+            await fetchSchedules(for: dog)
+        }
+
+    }
 
     private func saveContext() async {
         do {
@@ -67,7 +86,9 @@ class ScheduleDataStore: ObservableObject {
             }
             print("Context saved successfully")
         } catch {
-            print("Failed to save context: \(error.localizedDescription)")
+            await MainActor.run {
+                self.alertMessage = "Failed to save context: \(error.localizedDescription)"
+            }
         }
     }
-    }
+}

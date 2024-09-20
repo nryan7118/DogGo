@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension ScheduleEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ScheduleEntity> {
@@ -22,6 +21,5 @@ extension ScheduleEntity {
 
 }
 
-extension ScheduleEntity : Identifiable {
-
+extension ScheduleEntity: Identifiable {
 }

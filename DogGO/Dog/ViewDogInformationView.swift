@@ -10,18 +10,18 @@ import SwiftData
 
 struct ViewDogInformationView: View {
     var dog: Dog
-    
+
     let photoFrameLength: CGFloat = 200.0
     let vstackSpacking: CGFloat = 10.0
     let overlayStrokeWidth: CGFloat = 4.0
     let shadowRadius: CGFloat = 10.0
     let photoPadding: CGFloat = 20.0
     let textPadding: CGFloat = 5.0
-    
+
     var body: some View {
         VStack(spacing: vstackSpacking) {
             HighLightedHeadline(value: dog.name ?? "No name available", imageString: "collarPhoto")
-            
+
             if let photoData = dog.photo, let uiImage = UIImage(data: photoData) {
                 Image(uiImage: uiImage)
                     .resizable()
@@ -49,14 +49,14 @@ struct ViewDogInformationView: View {
                 Text("Date of Birth: \(dog.dob != nil ? formattedDate(dog.dob!) : "Unknown DOB")")
                 Text("Likes: \((dog.likes as? [String])?.filter { !$0.isEmpty }.joined(separator: ", ") ?? "None")")
                     .padding(.top, textPadding)
-                Text("Dislikes: \((dog.dislikes as? [String])?.filter { !$0.isEmpty }.joined(separator: ", ") ?? "I'm a happy, happy dog.")")
+                Text("Dislikes: \((dog.dislikes as? [String])?.filter{ !$0.isEmpty }.joined(separator: ", ") ?? "I'm a happy, happy dog.")")
                 Text("Special Instructions: \(dog.specialInstructions ?? "None" )")
                     .padding(.top, textPadding)
             }
         }
             .padding()
     }
-    
+
     private func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -66,15 +66,15 @@ struct ViewDogInformationView: View {
 
 #Preview {
     let managedObjectContext = CoreDataStack.shared.context
-    
+
     let sampleDog = Dog(context: managedObjectContext)
     sampleDog.name = "Kobe"
     sampleDog.breed = "Mini Schnauzer"
     sampleDog.dob = Date()
     sampleDog.likes = ["Belly Rubs", "Running"] as NSObject
     sampleDog.dislikes = ["Loud Noises"] as NSObject
-    sampleDog.emergencyContacts = "123-867-5309"
+    sampleDog.emergencyContact = "123-867-5309"
     sampleDog.specialInstructions = "Needs extra car during storms"
-    
+
     return ViewDogInformationView(dog: sampleDog)
 }

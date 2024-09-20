@@ -5,23 +5,23 @@ struct ViewDogTabView: View {
     @EnvironmentObject var scheduleDataStore: ScheduleDataStore
     @EnvironmentObject var dogDataStore: DogDataStore
     @EnvironmentObject var vetInformationDataStore: VetInformationDataStore
-    
+
     var dog: Dog
     var vet: VetInformation
-    
+
     var body: some View {
         TabView {
             ViewDogInformationView(dog: dog)
                 .tabItem {
                     Label("Info", systemImage: "dog")
                 }
-            
+
             ViewScheduleView(dog: dog)
                 .tabItem {
                     Label("Schedule", systemImage: "calendar")
                 }
-            
-            ContactView(dog: dog)  
+
+            ContactView(dog: dog)
                 .tabItem {
                     Label("Contact", systemImage: "phone.bubble")
                 }
@@ -31,23 +31,21 @@ struct ViewDogTabView: View {
                 print("Dog ID is nil, cannot fetch schedules")
                 return
             }
-            scheduleDataStore.fetchSchedules(for: dogID)
-        }
-
+            Task {
+                await scheduleDataStore.fetchSchedules(for: dog)
+            }
+            }
     }
 }
 
-
 #Preview {
-    let managedObjectContext = CoreDataStack.shared.context
-    let sampleDog = Dog(context: managedObjectContext)
+    let sampleDog = Dog()
     sampleDog.name = "Buddy"
     
-    let sampleVet = VetInformation(context: managedObjectContext)
-    
+    let sampleVet = VetInformation(context: CoreDataStack.shared.context)
+
     return ViewDogTabView(dog: sampleDog, vet: sampleVet)
-        .environment(\.managedObjectContext, managedObjectContext)
-        .environmentObject(ScheduleDataStore(managedObjectContext: managedObjectContext))
-        .environmentObject(DogDataStore(managedObjectContext: managedObjectContext))
-        .environmentObject(VetInformationDataStore(managedObjectContext: managedObjectContext))
+        .environmentObject(ScheduleDataStore())
+        .environmentObject(DogDataStore())
+        .environmentObject(VetInformationDataStore())
 }

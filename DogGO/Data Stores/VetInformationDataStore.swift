@@ -10,40 +10,67 @@ import CoreData
 
 class VetInformationDataStore: ObservableObject {
     @Published var vetInformationList: [VetInformation] = []
-    public let managedObjectContext: NSManagedObjectContext
-    
-    init(managedObjectContext: NSManagedObjectContext) {
-        self.managedObjectContext = managedObjectContext
-        Task {
-            await fetchVetInformation()
-        }
+    private let managedObjectContext: NSManagedObjectContext
+    @Published var alertMessage: String?
+
+    init(context: NSManagedObjectContext = CoreDataStack.shared.context) {
+        self.managedObjectContext = context
     }
-    
-    func fetchVetInformation() async {
+
+    func fetchVetInformation(for vetID: UUID?) async {
+        guard let validVetID = vetID else {
+            await MainActor.run {
+                self.alertMessage = "No vet ID found for the dog."
+            }
+            return
+        }
+
         let fetchRequest: NSFetchRequest<VetInformation> = VetInformation.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "vetID == %@", validVetID as CVarArg)
+
         do {
             let fetchedData = try await managedObjectContext.perform {
                 try self.managedObjectContext.fetch(fetchRequest)
             }
-            DispatchQueue.main.async {
+
+            await MainActor.run {
+                self.vetInformationList = fetchedData
+            }
+
+        } catch {
+            await MainActor.run {
+                self.alertMessage = "Failed to fetch vet information: \(error.localizedDescription)"
+            }
+        }
+    }
+
+    func fetchAllVetInformation() async {
+        let fetchRequest: NSFetchRequest<VetInformation> = VetInformation.fetchRequest()
+
+        do {
+            let fetchedData = try await managedObjectContext.perform {
+                try self.managedObjectContext.fetch(fetchRequest)
+            }
+            await MainActor.run {
                 self.vetInformationList = fetchedData
             }
         } catch {
-            print("Failed to fetch vet information: \(error.localizedDescription)")
+            await MainActor.run {
+                self.alertMessage = "Failed to fetch vet information: \(error.localizedDescription)"
+            }
         }
     }
-    
+
     func addVetInformation(_ vetInformation: VetInformation) async {
         managedObjectContext.insert(vetInformation)
         await saveContext()
-        await fetchVetInformation()
+        await fetchAllVetInformation()
     }
 
-    // New function to delete vet information
     func deleteVetInformation(_ vetInformation: VetInformation) async {
         managedObjectContext.delete(vetInformation)
         await saveContext()
-        await fetchVetInformation() // Refresh the list after deletion
+        await fetchAllVetInformation() // Refresh the list after deletion
     }
 
     private func saveContext() async {
@@ -55,7 +82,9 @@ class VetInformationDataStore: ObservableObject {
             }
             print("Context saved successfully")
         } catch {
-            print("Failed to save context: \(error.localizedDescription)")
+            await MainActor.run {
+                self.alertMessage = "Failed to save context: \(error.localizedDescription)"
+            }
         }
     }
 }

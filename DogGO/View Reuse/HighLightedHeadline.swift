@@ -10,12 +10,11 @@ import SwiftUI
 struct HighLightedHeadline: View {
     var value: String
     var imageString: String?
-    
+
     let shadowRadius: CGFloat = 2.0
     let frameLength: CGFloat = 50.0
     
     var body: some View {
-        VStack {
             HStack {
                 Text(value)
                     .font(.largeTitle)
@@ -33,8 +32,6 @@ struct HighLightedHeadline: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color.gray)
-        }
-        Spacer()
     }
 }
 

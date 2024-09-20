@@ -10,10 +10,12 @@ import CoreData
 
 class DogDataStore: ObservableObject {
     @Published var dogs: [Dog] = []
-    public let managedObjectContext: NSManagedObjectContext
-    
-    init(managedObjectContext: NSManagedObjectContext) {
-        self.managedObjectContext = managedObjectContext
+    @Published var alertMessage: String?
+
+    private let managedObjectContext: NSManagedObjectContext
+
+    init(context: NSManagedObjectContext = CoreDataStack.shared.context) {
+        self.managedObjectContext = context
         Task {
             await fetchDogs()
         }
@@ -22,37 +24,43 @@ class DogDataStore: ObservableObject {
     // Fetch existing dogs from Core Data
     func fetchDogs() async {
         let fetchRequest: NSFetchRequest<Dog> = Dog.fetchRequest()
-        
+
         do {
             let fetchedDogs = try await managedObjectContext.perform {
                 try self.managedObjectContext.fetch(fetchRequest)
             }
-            
-            DispatchQueue.main.async {
+            await MainActor.run {
                 self.dogs = fetchedDogs
             }
         } catch {
-            print("Failed to fetch dogs: \(error)")
+            await MainActor.run {
+                self.alertMessage = "Failed to fetch dogs: \(error.localizedDescription)"
+            }
         }
     }
 
-    
     // Add new dog (only when user explicitly adds one)
     func addDog(_ dog: Dog) {
-        dogs.append(dog)
         saveContext()
+        Task {
+            await fetchDogs()
+        }
     }
-    
+
     // Delete a dog
     func deleteDog(_ dog: Dog) {
         managedObjectContext.delete(dog)
         saveContext()
+        Task {
+            await fetchDogs()
+        }
     }
+
     private func saveContext() {
         do {
             try managedObjectContext.save()
         } catch {
-            print("Failed to save context: \(error)")
+            alertMessage = "Failed to save dog: \(error.localizedDescription)"
         }
     }
 }

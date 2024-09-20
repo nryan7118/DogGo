@@ -17,38 +17,40 @@ class DogDataStoreTests: XCTestCase {
         try await super.setUp()
 
         // Set up the in-memory Core Data stack for testing
-        let persistentContainer = NSPersistentContainer(name: "DogGo")
+        let persistentContainer = NSPersistentContainer(name: "DogGoCore")
         let description = NSPersistentStoreDescription()
         description.type = NSInMemoryStoreType
         persistentContainer.persistentStoreDescriptions = [description]
 
-        await persistentContainer.loadPersistentStores { storeDescription, error in
+         persistentContainer.loadPersistentStores { _, error in
             XCTAssertNil(error, "Failed to load in-memory store: \(error!)")
         }
-
         managedObjectContext = persistentContainer.viewContext
-        dataStore = DogDataStore(managedObjectContext: managedObjectContext)
+        dataStore = DogDataStore(context: managedObjectContext)
     }
 
     @MainActor
-    func testAddDog() throws {
+    func testAddDog() async throws {
+        dataStore = DogDataStore(context: managedObjectContext)
+
+        await dataStore.fetchDogs()
         let initialCount = dataStore.dogs.count
-        
+
         let newDog = Dog(context: managedObjectContext)
         newDog.dogID = UUID()
         newDog.name = "Test Dog"
         newDog.dob = Date()
         newDog.breed = "Test Breed"
-        newDog.allergies = [] as NSObject
         newDog.likes = [] as NSObject
         newDog.dislikes = [] as NSObject
-        newDog.ownerName = [] as NSObject
-        newDog.ownerPhone = [] as NSObject
-        newDog.emergencyContacts = "Test Contact"
+        newDog.ownerName = "Text Owner Name"
+        newDog.ownerPhone = "Test Owner Phone"
+        newDog.emergencyContact = "Test Contact"
         newDog.emergencyContactPhone = "Test Contact Phone"
         newDog.specialInstructions = "Test"
-        
-        dataStore.addDog(newDog)
+
+        await dataStore.addDog(newDog)
+        await dataStore.fetchDogs()
 
         XCTAssertEqual(dataStore.dogs.count, initialCount + 1)
         XCTAssertTrue(dataStore.dogs.contains(where: { $0.name == "Test Dog" }))
@@ -61,15 +63,14 @@ class DogDataStoreTests: XCTestCase {
         newDog.name = "Test Dog"
         newDog.dob = Date()
         newDog.breed = "Test Breed"
-        newDog.allergies = [] as NSObject
         newDog.likes = [] as NSObject
         newDog.dislikes = [] as NSObject
-        newDog.ownerName = [] as NSObject
-        newDog.ownerPhone = [] as NSObject
-        newDog.emergencyContacts = "Test Contact"
+        newDog.ownerName = "Owner Name"
+        newDog.ownerPhone = "Owner Phone"
+        newDog.emergencyContact = "Test Contact"
         newDog.emergencyContactPhone = "Test Contact Phone"
         newDog.specialInstructions = "Test"
-        
+
         dataStore.addDog(newDog)
 
         dataStore.deleteDog(newDog)

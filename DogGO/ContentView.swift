@@ -13,65 +13,69 @@ struct ContentView: View {
     @State private var selectedDog: Dog?
     @State private var selectedVet: VetInformation?
     @State private var selectedSchedule: Schedule?
-    
+    @State private var showAlert = false
+
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(dogDataStore.dogs) { dog in
-                    HStack {
-                        NavigationLink(destination:
-                                        ViewDogTabView(
-                                            dog: dog,
-                                            vet: selectedVet ?? VetInformation(context: dogDataStore.managedObjectContext)
-                                        )
-                        ) {
-                            Text(dog.name ?? "No Name")
+            if dogDataStore.dogs.isEmpty {
+                FirstDogView(selectedDog: $selectedDog)
+            } else {
+                List {
+                    ForEach(dogDataStore.dogs) { dog in
+                        HStack {
+                            NavigationLink(destination:
+                                            ViewDogTabView(
+                                                dog: dog,
+                                                vet: selectedVet ?? VetInformation(context: CoreDataStack.shared.context)
+                                            )
+                            ) {
+                                Text(dog.name ?? "No Name")
+                            }
+                            Spacer()
                         }
-                        
-                        Spacer()
+                    }
+                    .onDelete(perform: deleteDog)
+                }
+                .navigationTitle("Dogs")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink(destination: AddDogProgressiveView(dog: $selectedDog)) {
+                            Image(systemName: "plus")
+                        }
                     }
                 }
-                .onDelete(perform: deleteDog)
-            }
-            .navigationTitle("Dogs")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: AddDogProgressiveView(dog: $selectedDog))  {
-                        Image(systemName: "plus")
-                    }
-//                    .onTapGesture {
-//                        if selectedDog == nil {
-//                            selectedDog = Dog(context: dogDataStore.managedObjectContext)
-                      //  }
+                .onAppear {
+                    Task {
+                        await dogDataStore.fetchDogs()
                     }
                 }
-            }
-            .onAppear {
-                Task {
-                    await dogDataStore.fetchDogs()
+                .alert(isPresented: .constant(dogDataStore.alertMessage != nil), content: {
+                    Alert(
+                title: Text("Error"),
+                message: Text(dogDataStore.alertMessage ?? ""),
+                dismissButton: .default(Text("OK")) {
+                    dogDataStore.alertMessage = nil
                 }
+                )
+                })
             }
         }
-//    }
-    
+    }
     private func deleteDog(offsets: IndexSet) {
         for index in offsets {
             let dog = dogDataStore.dogs[index]
             dogDataStore.deleteDog(dog)
-            
                 }
             }
         }
 
 #Preview {
-    let managedObjectContext = CoreDataStack.shared.context
-let dogDataStore = DogDataStore(managedObjectContext: managedObjectContext)
-        let scheduleDataStore = ScheduleDataStore(managedObjectContext: managedObjectContext)
-    let vetInformationDataStore = VetInformation(context: managedObjectContext)
+    let dogDataStore = DogDataStore()
+    let scheduleDataStore = ScheduleDataStore()
+    let vetInformationDataStore = VetInformation()
     
     return ContentView()
         .environmentObject(dogDataStore)
         .environmentObject(scheduleDataStore)
         .environmentObject(vetInformationDataStore)
-    
 }

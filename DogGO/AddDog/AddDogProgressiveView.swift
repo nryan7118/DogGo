@@ -10,89 +10,98 @@ import CoreData
 
 struct AddDogProgressiveView: View {
     @EnvironmentObject var dogDataStore: DogDataStore
-    @State private var step: Int = 1
-    
-    @State private var name: String = ""
-    @State private var dob: Date = Date()
-    @State private var breed: String = ""
-    @State private var likes: [String] = [""]
-    @State private var dislikes: [String] = [""]
-    
-    @State private var ownerName: [String] = [""]
-    @State private var ownerPhone: [String] = [""]
+    @Environment(\.presentationMode) var presentationMode
+
+    @State private var step = 1
+
+    @State private var name = ""
+    @State private var dob = Date()
+    @State private var breed = ""
+    @State private var likes = [""]
+    @State private var dislikes = [""]
+
+    @State private var ownerName = ""
+    @State private var ownerPhone = ""
     @State private var emergencyContact: String? = ""
     @State private var emergencyContactPhone: String? = ""
-    
-    @State private var selectedImageData: Data? = nil
-    @State private var selectedVet: VetInformation? = nil
+
+    @State private var selectedImageData: Data?
+
+    @State private var selectedVet: VetInformation?
+
     @State private var scheduledTimes: Schedule = Schedule(context: CoreDataStack.shared.context)
-    
+
     @Binding var dog: Dog?
-    
+
     var body: some View {
-        NavigationStack {
-            VStack {
-                switch step {
-                case 1:
-                    AddBasicInfoView(
-                        dog: $dog,
-                        name: $name,
-                        dob: $dob,
-                        breed: $breed,
-                        likes: $likes,
-                        dislikes: $dislikes,
-                        onNext: {
-
-                            if dog == nil {
-                                dog = Dog(context: CoreDataStack.shared.context)
-                                dog?.dogID = UUID()
-                            }
-                            saveBasicInfo()
-                            step = 2
+        VStack {
+            switch step {
+            case 1:
+                AddBasicInfoView(
+                    dog: $dog,
+                    name: $name,
+                    dob: $dob,
+                    breed: $breed,
+                    likes: $likes,
+                    dislikes: $dislikes,
+                    onNext: {
+                        if dog == nil {
+                            dog = Dog(context: CoreDataStack.shared.context)
+                            dog?.dogID = UUID()
                         }
-                    )
-                case 2:
-                    AddOwnerAndPhotoView(
-                        ownerName: $ownerName,
-                        ownerPhone: $ownerPhone,
-                        emergencyContact: $emergencyContact,
-                        emergencyContactPhone: $emergencyContactPhone,
-                        selectedImageData: $selectedImageData,
-                        onSave: saveOwnerAndPhoto,
-                        nextStep: {
-                            step = 3
+                        saveBasicInfo()
+                        step = 2
+                    }
+                )
+            case 2:
+                AddOwnerAndPhotoView(
+                    ownerName: $ownerName,
+                    ownerPhone: $ownerPhone,
+                    emergencyContact: $emergencyContact,
+                    emergencyContactPhone: $emergencyContactPhone,
+                    selectedImageData: $selectedImageData,
+                    onSave: saveOwnerAndPhoto,
+                    nextStep: {
+                        step = 3
+                    }
+                )
+            case 3:
+                AddVetInformationView(
+                    dog: $dog, selectedVet: $selectedVet,
+                    onNext: {
+
+                        saveVetInfo()
+                        step = 4
+                    }
+                )
+            case 4:
+                AddScheduleView(scheduledTimes: $scheduledTimes, dog: dog ?? Dog(context: CoreDataStack.shared.context))
+
+                HStack {
+                    Button("Go Home") {
+                        Task {
+                            await finishScheduling()
                         }
-                    )
-
-                case 3:
-                    AddVetInformationView(
-                        selectedVet: $selectedVet,
-                        onNext: {
-                            saveVetInfo()
-                            step = 4
                         }
-                    )
-
-                case 4:
-                    AddScheduleView(
-                        scheduledTimes: $scheduledTimes,
-                        dogID: dog?.dogID ?? UUID()  // Use the dogID once the dog is saved properly
-                    )
-
-                default:
-                    Text("Invalid Step")
+                    .padding()
+                    .background(Color.accentColor)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
+
+            default:
+                Text("Invalid Step")
             }
-            .navigationTitle(getTitleForStep(step))
-            .onAppear {
-                if let dogID = dog?.dogID {
-                    loadDogInfo(dogID: dogID)  // Only load dog info if a valid dogID exists
-                }
+        }
+        .navigationTitle(getTitleForStep)
+        .onAppear {
+            if let dogID = dog?.dogID {
+                loadDogInfo(dogID: dogID)
             }
         }
     }
-    
-    private func getTitleForStep(_ step: Int) -> String {
+
+    private var getTitleForStep: String {
         switch step {
         case 1: return "Basic Info"
         case 2: return "Owner & Info"
@@ -103,76 +112,96 @@ struct AddDogProgressiveView: View {
     }
 
     private func saveBasicInfo() {
-           guard let dog = dog else { return }
-        
-           if !name.isEmpty {
-               dog.name = name
-               dog.dob = dob
-               dog.breed = breed
-               dog.likes = likes as NSObject
-               dog.dislikes = dislikes as NSObject
+        guard let dog = dog else { return }
+        if !name.isEmpty {
+            dog.name = name
+            dog.dob = dob
+            dog.breed = breed
+            dog.likes = likes as NSObject
+            dog.dislikes = dislikes as NSObject
+            CoreDataStack.shared.save()
 
-               CoreDataStack.shared.save()
-               print("Dog saved successfully!")
-           } else {
-               print("Cannot save. Name is empty.")
-           }
-       }
-    
+            print("Dog saved successfully!")
+        } else {
+            print("Cannot save. Name is empty.")
+        }
+    }
+    private func resetForNewDog() {
+        dog = nil
+        name = ""
+        dob = Date()
+        breed = ""
+        likes = [""]
+        dislikes = [""]
+        ownerName = ""
+        ownerPhone = ""
+        emergencyContact = ""
+        emergencyContactPhone = ""
+        selectedImageData = nil
+        selectedVet = nil
+        scheduledTimes = Schedule(context: CoreDataStack.shared.context)
+
+        step = 1
+    }
+
     private func saveOwnerAndPhoto() {
         guard let dog = fetchLastSavedDog() else { return }
 
-        dog.ownerName = ownerName as NSArray
-        dog.ownerPhone = ownerPhone as NSArray
-        dog.emergencyContacts = emergencyContact
+        dog.ownerName = ownerName
+        dog.ownerPhone = ownerPhone
+        dog.emergencyContact = emergencyContact
         dog.emergencyContactPhone = emergencyContactPhone
-        
+
         if let imageData = selectedImageData {
             dog.photo = imageData
         }
-        
+
         CoreDataStack.shared.save()
         print("Owner and photo saved successfully!")
     }
-    
+
     private func saveVetInfo() {
         guard let dog = fetchLastSavedDog() else { return }
-        
+
         if let vet = selectedVet {
-            dog.vetSelectedID = vet.vetID
+            dog.vetRelationship = vet
         } else {
-            let newVet = VetInformation(context: CoreDataStack.shared.context)
-            newVet.vetID = UUID()
-            dog.vetSelectedID = newVet.vetID
+            print("No vet selected. Please select a vet to continue.")
         }
-        
-        CoreDataStack.shared.save()
-        print("Vet info saved successfully!")
+        Task {
+            CoreDataStack.shared.save()
+        }
     }
-    
     private func saveSchedule() {
         guard let dog = fetchLastSavedDog() else { return }
-        
+
         let newSchedule = Schedule(context: CoreDataStack.shared.context)
         newSchedule.scheduledTime = scheduledTimes.scheduledTime
         newSchedule.scheduledEvent = scheduledTimes.scheduledEvent
         newSchedule.scheduledCategory = scheduledTimes.scheduledCategory
         newSchedule.scheduleID = UUID()
-        newSchedule.selectedDogID = dog.dogID
-        
+
+        newSchedule.dogRelationship = dog
+        dog.addToScheduleRelationship(newSchedule)
         CoreDataStack.shared.save()
         print("Schedule saved successfully!")
     }
-    
+
+    private func finishScheduling() async {
+        resetForNewDog()
+
+        presentationMode.wrappedValue.dismiss()
+    }
+
     private func fetchLastSavedDog() -> Dog? {
         if let dog = dog {
             return dog
         }
-        
+
         let fetchRequest: NSFetchRequest<Dog> = Dog.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "ownerName", ascending: false)]
         fetchRequest.fetchLimit = 1
-        
+
         do {
             let result = try CoreDataStack.shared.context.fetch(fetchRequest)
             return result.first
@@ -181,16 +210,16 @@ struct AddDogProgressiveView: View {
             return nil
         }
     }
-    
-   private func loadDogInfo(dogID: UUID?) {
+
+    private func loadDogInfo(dogID: UUID?) {
         guard let dogID = dogID else {
             print("DogID is nil, cannot load dog info")
             return
         }
-       
+
         let fetchRequest: NSFetchRequest<Dog> = Dog.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "dogID == %@", dogID as CVarArg)
-       
+
         do {
             let fetchedDogs = try CoreDataStack.shared.context.fetch(fetchRequest)
             if let fetchedDog = fetchedDogs.first {
@@ -200,7 +229,7 @@ struct AddDogProgressiveView: View {
                 self.breed = fetchedDog.breed ?? ""
                 self.likes = fetchedDog.likes as? [String] ?? []
                 self.dislikes = fetchedDog.dislikes as? [String] ?? []
-                print("Dog info loaded sucessfully for dogID: \(dogID)")
+                print("Dog info loaded successfully for dogID: \(dogID)")
             } else {
                 print("No dog found with the provided dogID: \(dogID)")
             }
@@ -211,5 +240,7 @@ struct AddDogProgressiveView: View {
 }
 
 #Preview {
-    AddDogProgressiveView(dog: .constant(Dog(context: CoreDataStack.shared.context)))
+    NavigationStack {
+        AddDogProgressiveView(dog: .constant(Dog(context: CoreDataStack.shared.context)))
+    }
 }

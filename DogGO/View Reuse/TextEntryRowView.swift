@@ -10,15 +10,13 @@ import SwiftUI
 struct TextEntryRowView: View {
     var title: String
     @Binding var value: String
-    
+
     var height: CGFloat = 40.0
     var opacity: CGFloat = 0.2
     var borderWdith: CGFloat = 2.0
     @FocusState private var textfieldFocused: Bool
-    
-    
+
     var body: some View {
-        HStack {
             TextField(title, text: $value)
                 .font(.body)
                 .fontDesign(.serif)
@@ -27,22 +25,19 @@ struct TextEntryRowView: View {
                 .border(Color.accentColor, width: borderWdith)
                 .background(Color.gray.opacity(opacity))
                 .accessibilityIdentifier(title)
-        }
         .autocorrectionDisabled()
-        .padding()
     }
 }
 
 extension TextEntryRowView {
     init(title: String, optionalValue: Binding<String?>) {
         self.title = title
-        self._value = Binding (
+        self._value = Binding(
             get: {optionalValue.wrappedValue ?? " " },
             set: {optionalValue.wrappedValue = $0.isEmpty ? nil : $0 }
             )
         }
     }
-
 
 #Preview {
     TextEntryRowView(title: "Dog's Name: ", value: .constant("Kobe"))

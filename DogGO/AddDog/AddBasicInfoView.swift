@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct AddBasicInfoView: View {
-    @Environment(\.managedObjectContext) private var managedObjectContext
     @EnvironmentObject var dogDataStore: DogDataStore
-    @FocusState private var likesTextfieldFocused: Bool
-    @FocusState private var dislikesTextfieldFocused: Bool
-
     @Binding var dog: Dog?
     @Binding var name: String
     @Binding var dob: Date
@@ -22,12 +18,14 @@ struct AddBasicInfoView: View {
 
     @State private var newLike: String = ""
     @State private var newDislikes: String = ""
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
 
     var onNext: () -> Void
 
     var body: some View {
         Form {
-            Section(header: Text("Basic Information")) {
+            Section("Basic Information") {
                 TextEntryRowView(title: "Dog's Name", value: $name)
                     .accessibilityIdentifier("dogNameTextField")
                 BreedPickerView(selectedBreed: $breed)
@@ -35,31 +33,23 @@ struct AddBasicInfoView: View {
                 DatePicker("Date of Birth", selection: $dob, displayedComponents: [.date])
                     .accessibilityIdentifier("dobDatePicker")
                     .datePickerStyle(.graphical)
-                    .frame(maxWidth: .infinity)
-                    .padding()
             }
 
-            Section(header: Text("Likes & Dislikes")
-                .accessibilityIdentifier("likesDislikesSection")) {
+            Section("Likes & Dislikes") {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading) {
                         Text("Likes")
                             .font(.headline)
                         HStack {
                             TextField("Add new like...", text: $newLike)
-                                .onLongPressGesture(minimumDuration: 0.0) {
-                                    likesTextfieldFocused = true
-                                }
-                                .focused($likesTextfieldFocused)
-                                .frame(maxWidth: .infinity)
 
-                            Button(action: {
+                            Button {
                                 let trimmedLike = newLike.trimmingCharacters(in: .whitespacesAndNewlines)
                                 if !trimmedLike.isEmpty {
                                     likes.append(trimmedLike)
                                     newLike = ""
                                 }
-                            }) {
+                            } label: {
                                 Image(systemName: "plus.circle.fill")
                             }
                         }
@@ -75,45 +65,50 @@ struct AddBasicInfoView: View {
                             .font(.headline)
                         HStack {
                             TextField("Add new dislike...", text: $newDislikes)
-                                .onLongPressGesture(minimumDuration: 0.0) {
-                                    dislikesTextfieldFocused = true
-                                }
-                                .focused($dislikesTextfieldFocused)
-                                .frame(maxWidth: .infinity)
 
-                            Button(action: {
+                            Button {
                                 let trimmedDislike = newDislikes.trimmingCharacters(in: .whitespacesAndNewlines)
                                 if !trimmedDislike.isEmpty {
                                     dislikes.append(trimmedDislike)
                                     newDislikes = ""
                                 }
-                            }) {
+                            } label: {
                                 Image(systemName: "plus.circle.fill")
                             }
+                            .accessibilityLabel("addButton")
                         }
                         ForEach(dislikes, id: \.self) { dislike in
                             Text(dislike)
                         }
                     }
                 }
-                .frame(maxWidth: .infinity)
-                .padding()
             }
 
             Button(action: saveAndNext) {
                 Text("Next")
                     .frame(maxWidth: .infinity)
-                    .padding()
+                    .controlSize(.large)
             }
-            .accessibilityIdentifier("NextButton")  // Ensure we add the accessibility identifier here
+            .accessibilityIdentifier("NextButton")
             .buttonStyle(.borderedProminent)
         }
         .onAppear(perform: loadDogInfo)
+        .alert("Error", isPresented: $showingAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(alertMessage)
+        }
     }
 
     private func saveAndNext() {
+        if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            alertMessage = "Please enter the dog's name."
+            showingAlert = true
+            return 
+        }
+
         if dog == nil {
-            dog = Dog(context: managedObjectContext)
+            dog = Dog(context: CoreDataStack.shared.context)
             dog?.dogID = UUID()
         }
 
@@ -124,19 +119,19 @@ struct AddBasicInfoView: View {
         dog?.name = name
         dog?.dob = dob
         dog?.breed = breed
-        dog?.likes = likes as NSArray
-        dog?.dislikes = dislikes as NSArray
+        dog?.likes = likes as [String] as NSObject
+        dog?.dislikes = dislikes as [String] as NSObject
 
-        do {
-            try managedObjectContext.save()
-            Task {
+        // Add the dog to the data store
+        dogDataStore.addDog(dog!)
+
+        // Async task for fetching dogs and moving to the next step
+        Task {
+            do {
                 await dogDataStore.fetchDogs()
+                onNext()  // Proceed to the next step
             }
-        } catch {
-            print("Error saving dog info: \(error)")
         }
-
-        onNext()
     }
 
     private func loadDogInfo() {
@@ -144,17 +139,20 @@ struct AddBasicInfoView: View {
             name = dog.name ?? ""
             dob = dog.dob ?? Date()
             breed = dog.breed ?? ""
-
             likes = (dog.likes as? [String]) ?? []
             dislikes = (dog.dislikes as? [String]) ?? []
         }
     }
 }
 
-
 #Preview {
-    var dog = Dog(context: CoreDataStack.shared.context)
-    var dogDataStore = DogDataStore(managedObjectContext: CoreDataStack.shared.context)
-    
-  return  AddBasicInfoView(dog: .constant(dog), name: .constant("Test"), dob: .constant(Date()), breed: .constant("Test"), likes: .constant([""]), dislikes: .constant([""]), onNext: {})
+    let dog = Dog()
+    return  AddBasicInfoView(
+        dog: .constant(dog),
+        name: .constant("Test"),
+        dob: .constant(Date()),
+        breed: .constant("Test"),
+        likes: .constant([""]),
+        dislikes: .constant([""]),
+        onNext: {})
 }

@@ -1,11 +1,3 @@
-//
-//  Owner&PhotoView.swift
-//  DogGO
-//
-//  Created by Nick Ryan on 9/4/24.
-//
-
-//
 //  Owner&PhotoView.swift
 //  DogGO
 //
@@ -16,33 +8,37 @@ import SwiftUI
 import PhotosUI
 
 struct AddOwnerAndPhotoView: View {
-    
-    @Binding var ownerName: [String]
-    @Binding var ownerPhone: [String]
+
+    @Binding var ownerName: String
+    @Binding var ownerPhone: String
     @Binding var emergencyContact: String?
     @Binding var emergencyContactPhone: String?
     @Binding var selectedImageData: Data?
-    
-    @State private var selectedItem: PhotosPickerItem? = nil
-    
+
+    @State private var selectedItem: PhotosPickerItem?
+    @State private var isImageLoading: Bool = false
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
+
     var onSave: () -> Void
     var nextStep: () -> Void
-    
+
     let photoFrameLength: CGFloat = 250.0
     let buttonWidth: CGFloat = 200.0
     let buttonHeight: CGFloat = 40.0
     let cameraIconLength: CGFloat = 24.0
     let buttonBorderWidth: CGFloat = 2.0
-    
+
     var body: some View {
         Form {
             Section(header: Text("Owner")) {
                 VStack(alignment: .leading) {
-                    TextEntryRowView(title: "Owner Name", value: $ownerName.first ?? .constant(""))
+                    TextEntryRowView(title: "Owner Name", value: $ownerName)
                         .padding(.bottom, 4)
                         .accessibilityIdentifier("ownerNameTextField")
-                    
-                    TextEntryRowView(title: "Owner Phone", value: $ownerPhone.first ?? .constant(""))
+
+                    TextEntryRowView(title: "Owner Phone", value: $ownerPhone)
+                        .padding(.bottom, 4)
                         .accessibilityIdentifier("ownerPhoneTextField")
                 }
             }
@@ -52,13 +48,13 @@ struct AddOwnerAndPhotoView: View {
                     TextEntryRowView(title: "Emergency Contact", optionalValue: $emergencyContact)
                         .padding(.bottom, 4)
                         .accessibilityIdentifier("emergencyContactTextField")
-                    
+
                     TextEntryRowView(title: "Emergency Contact Phone", optionalValue: $emergencyContactPhone)
                         .accessibilityIdentifier("emergencyContactPhoneTextField")
                 }
             }
             .frame(maxWidth: .infinity)
-            
+
             Section(header: Text("Dog Photo")) {
                 if let selectedImageData, let uiImage = UIImage(data: selectedImageData) {
                     Image(uiImage: uiImage)
@@ -67,6 +63,9 @@ struct AddOwnerAndPhotoView: View {
                         .clipShape(Capsule())
                         .frame(width: photoFrameLength, height: photoFrameLength)
                         .frame(maxWidth: .infinity)
+                } else if isImageLoading {
+                    ProgressView()
+                        .frame(width: photoFrameLength, height: photoFrameLength)
                 } else {
                     Image("dogPhoto")
                         .resizable()
@@ -74,7 +73,7 @@ struct AddOwnerAndPhotoView: View {
                         .clipShape(Capsule())
                         .frame(width: photoFrameLength, height: photoFrameLength)
                 }
-                
+
                 PhotosPicker(selection: $selectedItem, matching: .images, photoLibrary: .shared()) {
                     HStack {
                         Image(systemName: "camera")
@@ -88,21 +87,40 @@ struct AddOwnerAndPhotoView: View {
                     }
                     .padding()
                 }
+                
+                .onChange(of: selectedItem) { _, newItem in
+                    Task {
+                        isImageLoading = true
+                        if let newItem = newItem {
+                            do {
+                                if let data = try await newItem.loadTransferable(type: Data.self) {
+                                    selectedImageData = data
+                                }
+                            } catch {
+                                alertMessage = "Error loading image: \(error.localizedDescription)"
+                                showAlert = true
+                            }
+                        }
+                            isImageLoading = false
+                    }
+                }
                 .frame(width: buttonWidth, height: buttonHeight)
                 .background(Capsule().stroke(Color.accentColor, lineWidth: buttonBorderWidth))
                 .accessibilityIdentifier("photoPickerButton")
             }
             .frame(maxWidth: .infinity)
-            
+
             Button(action: {
-                onSave()
-                nextStep()
-            }) {
+                if !isImageLoading {
+                    onSave()
+                    nextStep()
+                }
+            }, label: {
                 Text("Save")
                     .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.borderedProminent)
+            })
             .accessibilityIdentifier("saveButton")
+            .buttonStyle(.borderedProminent)
         }
         .ignoresSafeArea(.keyboard)
     }
@@ -110,8 +128,8 @@ struct AddOwnerAndPhotoView: View {
 
 #Preview {
     AddOwnerAndPhotoView(
-        ownerName: .constant(["Owner Name"]),
-        ownerPhone: .constant(["123-456-7890"]),
+        ownerName: .constant("Owner Name"),
+        ownerPhone: .constant("123-456-7890"),
         emergencyContact: .constant("Emergency Contact"),
         emergencyContactPhone: .constant("987-654-3210"),
         selectedImageData: .constant(nil),

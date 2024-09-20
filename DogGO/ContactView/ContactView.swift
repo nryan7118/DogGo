@@ -10,62 +10,61 @@ import CoreData
 
 struct ContactView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
+    @EnvironmentObject var vetInformationDataStore: VetInformationDataStore
     var dog: Dog
-    
-    @State private var selectedVet: VetInformation?
-    
+
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+
     var body: some View {
-        VStack(alignment: .leading) {
-            Form {
-                Section("Owner Information") {
-                    OwnerInformationSectionView(dog: dog)
-                }
-                
-                Section("Vet Information") {
-                    if let selectedVet = selectedVet {
+        Form {
+            Section("Owner Information") {
+                OwnerInformationSectionView(dog: dog)
+            }
+
+            Section("Vet Information") {
+
+                if let selectedVet = dog.vetRelationship {
                         ViewVetInformation(vet: selectedVet, dog: dog)
-                    } else {
-                        Text("Vet information not available")
-                            .foregroundStyle(Color.gray)
-                    }
-                }
-                
-                Section("Emergency Contact") {
-                    EmergencyContactSectionView(dog: dog)
+                } else {
+                    Text("Vet information not available")
+                        .foregroundStyle(Color.gray)
                 }
             }
-            .padding([.leading, .trailing])
-        }
-        .onAppear(perform: fetchVet)  // Correct use of .onAppear here
-    }
-    
-    private func fetchVet() {
-        guard let vetID = dog.vetSelectedID else {
-            print("No vet ID found for the dog.")
-            return
-        }
-        
-        let fetchRequest: NSFetchRequest<VetInformation> = VetInformation.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "vetID == %@", vetID as CVarArg)
-        
-        do {
-            let vets = try managedObjectContext.fetch(fetchRequest)
-            if let vet = vets.first {
-                selectedVet = vet
-            } else {
-                print("No vet found for the given ID.")
+
+            Section("Emergency Contact") {
+                EmergencyContactSectionView(dog: dog)
             }
-        } catch {
-            print("Error fetching vet: \(error)")
+        }
+        
+        .onAppear {
+            if let vet = dog.vetRelationship {
+                print("Vet relationshiop fouund: \(vet.vetFirstName ?? "Unknown")")
+                      } else {
+                    print("Vet information is nil for this dog")
+
+                }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Error"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
         }
     }
-}
 
 #Preview {
     let managedObjectContext = CoreDataStack.shared.context
     let sampleDog = Dog(context: managedObjectContext)
-    sampleDog.vetSelectedID = UUID()  // Assigning a UUID to simulate a saved dog
+    let sampleVet = VetInformation(context: managedObjectContext)
+    sampleVet.vetID = UUID() // Assign a valid ID
+    sampleVet.vetFirstName = "Test Vet"
 
+    sampleDog.vetRelationship = sampleVet
+    
     return ContactView(dog: sampleDog)
         .environment(\.managedObjectContext, managedObjectContext)
+        .environmentObject(VetInformationDataStore())
 }

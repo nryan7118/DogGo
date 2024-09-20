@@ -9,9 +9,9 @@ import SwiftUI
 
 struct OwnerInformationSectionView: View {
     var dog: Dog
-    
-    let imageSize: CGFloat = 100.0
-    
+
+    let imageSize = 100.0
+
     var body: some View {
         HStack {
             Image("dogHouse")
@@ -19,22 +19,19 @@ struct OwnerInformationSectionView: View {
                 .frame(maxWidth: imageSize, maxHeight: imageSize)
             Spacer()
             VStack(alignment: .leading) {
-                Text((dog.ownerName as? [String])?.joined(separator: ", ") ?? "No name")
-                Text((dog.ownerPhone as? [String])?.joined(separator: ", ") ?? "No phone")
+                Text(dog.ownerName ?? "Not available.")
+                Text(dog.ownerPhone ?? "Not available")
             }
         }
-        .padding()
     }
 }
 
 #Preview {
     let managedObjectContext = CoreDataStack.shared.context
-    
+
     let sampleDog = Dog(context: managedObjectContext)
-    sampleDog.ownerName = ["Joe Blow", "Jane Doe"] as NSObject
-    sampleDog.ownerPhone = ["123-456-7890", "987-654-3210"] as NSObject
+    sampleDog.ownerName = "Joe Blow"
+    sampleDog.ownerPhone = "123-456-7890"
     
     return OwnerInformationSectionView(dog: sampleDog)
 }
-
-

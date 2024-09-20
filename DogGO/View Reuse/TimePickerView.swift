@@ -9,16 +9,14 @@ import SwiftUI
 
 struct TimePickerView: View {
     @Binding var selectedTime: Date?
-    
+
     let padding: CGFloat = 10.0
-    
     var body: some View {
         HStack(alignment: .center) {
             Text("Select Time")
                 .font(.headline)
             Spacer()
-            DatePicker("Time", 
-                       selection: Binding <Date> (
+            DatePicker("Time", selection: Binding <Date>(
                 get: { selectedTime ?? Date() },
                 set: {  newValue in
                     selectedTime = newValue }
